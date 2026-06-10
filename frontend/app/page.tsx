@@ -381,6 +381,32 @@ export default function Home() {
     window.setTimeout(() => setCopied(false), 2000);
   }
 
+  function handleOpenHistory(item: HistoryItem) {
+    setResult({
+      subject: item.subject,
+      email: item.email,
+      provider: item.provider,
+    });
+    setPrompt(item.prompt);
+    setError("");
+    setCopied(false);
+    setLoading(false);
+    setRefiningAction(null);
+    setOpenDropdown(null);
+
+    if (tones.includes(item.tone as Tone)) {
+      setTone(item.tone as Tone);
+    }
+
+    if (purposes.includes(item.purpose as Purpose)) {
+      setPurpose(item.purpose as Purpose);
+    }
+
+    document
+      .getElementById("draft-preview")
+      ?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
   function handleConfirmDelete() {
     if (deleteIndex === null) {
       return;
@@ -630,7 +656,10 @@ export default function Home() {
             </div>
           </form>
 
-          <section className="rounded-lg border border-white/10 bg-slate-900/60 p-5 shadow-2xl shadow-slate-950/50 backdrop-blur-xl sm:p-6 lg:min-h-[560px]">
+          <section
+            id="draft-preview"
+            className="scroll-mt-6 rounded-lg border border-white/10 bg-slate-900/60 p-5 shadow-2xl shadow-slate-950/50 backdrop-blur-xl sm:p-6 lg:min-h-[560px]"
+          >
             <div className="flex items-center justify-between gap-3">
               <h2 className="text-xl font-semibold text-white">
                 AI Draft Preview
@@ -737,7 +766,7 @@ export default function Home() {
               Recent Generations
             </h2>
             <p className="text-sm text-slate-400">
-              Last 5 emails from this browser session.
+              Click any card to reopen it in the preview.
             </p>
           </div>
 
@@ -750,11 +779,27 @@ export default function Home() {
               {recentHistory.map((item, index) => (
                 <article
                   key={`${item.subject}-${index}`}
-                  className="relative min-w-0 rounded-lg border border-white/10 bg-white/10 p-4 pr-12 shadow-lg shadow-slate-950/30 backdrop-blur"
+                  role="button"
+                  tabIndex={0}
+                  onClick={() => handleOpenHistory(item)}
+                  onKeyDown={(event) => {
+                    if (event.target !== event.currentTarget) {
+                      return;
+                    }
+
+                    if (event.key === "Enter" || event.key === " ") {
+                      event.preventDefault();
+                      handleOpenHistory(item);
+                    }
+                  }}
+                  className="relative min-w-0 cursor-pointer rounded-lg border border-white/10 bg-white/10 p-4 pr-12 text-left shadow-lg shadow-slate-950/30 backdrop-blur transition hover:border-cyan-300/30 hover:bg-cyan-300/10 focus:outline-none focus:ring-2 focus:ring-cyan-300/30"
                 >
                   <button
                     type="button"
-                    onClick={() => setDeleteIndex(index)}
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      setDeleteIndex(index);
+                    }}
                     aria-label="Delete recent generation"
                     title="Delete"
                     className="absolute right-3 top-3 rounded-lg border border-white/10 bg-white/5 p-2 text-slate-400 transition hover:border-red-300/30 hover:bg-red-400/10 hover:text-red-100"

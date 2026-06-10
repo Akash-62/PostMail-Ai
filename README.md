@@ -16,7 +16,7 @@ The project is designed for a Full Stack AI Developer assignment. It keeps the b
 - Groq fallback provider
 - Copy-to-clipboard
 - Shorten, elaborate, and regenerate actions
-- Recent generations
+- Click-to-open recent generations
 - Responsive SaaS-style UI
 - FastAPI backend
 - Error handling

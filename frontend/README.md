@@ -36,4 +36,5 @@ http://localhost:3000
 - Groq-powered prompt ideas that refresh every 10 seconds
 - Shorten, elaborate, and rewrite actions
 - Copy-to-clipboard
+- Click-to-open recent generations
 - Recent generation delete modal with scroll lock
