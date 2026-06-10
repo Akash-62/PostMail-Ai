@@ -6,6 +6,28 @@ PostMail AI is a full-stack AI-powered email generator that converts rough user 
 
 The project is designed for a Full Stack AI Developer assignment. It keeps the backend simple and reliable while making the frontend feel like a modern SaaS product.
 
+## Screenshots
+
+### Home and Empty Preview
+
+![PostMail AI home and empty preview](screenshots/home-empty-preview.png)
+
+### Generated Email Preview
+
+![PostMail AI generated email preview](screenshots/generated-email-preview.png)
+
+### Recent Generations and Quick Actions
+
+![PostMail AI recent generations and quick actions](screenshots/recent-generations-actions.png)
+
+### Delete Confirmation
+
+![PostMail AI delete confirmation modal](screenshots/delete-confirmation-modal.png)
+
+### Recent Generations
+
+![PostMail AI recent generations](screenshots/recent-generations.png)
+
 ## Features
 
 - AI email generation
